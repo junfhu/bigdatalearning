@@ -1,0 +1,98 @@
+[root@sandbox hive]# hadoop
+Usage: hadoop [--config confdir] [COMMAND | CLASSNAME]
+  CLASSNAME            run the class named CLASSNAME
+ or
+  where COMMAND is one of:
+  fs                   run a generic filesystem user client
+  version              print the version
+  jar <jar>            run a jar file
+                       note: please use "yarn jar" to launch
+                             YARN applications, not this command.
+  checknative [-a|-h]  check native hadoop and compression libraries availability
+  distcp <srcurl> <desturl> copy file or directories recursively
+  envvars              display computed Hadoop environment variables
+  archive -archiveName NAME -p <parent path> <src>* <dest> create a hadoop archive
+  classpath            prints the class path needed to get the
+  credential           interact with credential providers
+                       Hadoop jar and the required libraries
+  daemonlog            get/set the log level for each daemon
+  trace                view and modify Hadoop tracing settings
+
+[root@sandbox hive]# hadoop fs ls /
+ls: Unknown command
+Did you mean -ls?  This command begins with a dash.
+Usage: hadoop fs [generic options]
+        [-appendToFile <localsrc> ... <dst>]
+        [-cat [-ignoreCrc] <src> ...]
+        [-checksum <src> ...]
+        [-chgrp [-R] GROUP PATH...]
+        [-chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...]
+        [-chown [-R] [OWNER][:[GROUP]] PATH...]
+        [-copyFromLocal [-f] [-p] [-l] <localsrc> ... <dst>]
+        [-copyToLocal [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]
+        [-count [-q] [-h] [-v] [-t [<storage type>]] [-u] <path> ...]
+        [-cp [-f] [-p | -p[topax]] <src> ... <dst>]
+        [-createSnapshot <snapshotDir> [<snapshotName>]]
+        [-deleteSnapshot <snapshotDir> <snapshotName>]
+        [-df [-h] [<path> ...]]
+        [-du [-s] [-h] <path> ...]
+        [-expunge]
+        [-find <path> ... <expression> ...]
+        [-get [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]
+        [-getfacl [-R] <path>]
+        [-getfattr [-R] {-n name | -d} [-e en] <path>]
+        [-getmerge [-nl] <src> <localdst>]
+        [-help [cmd ...]]
+        [-ls [-C] [-d] [-h] [-q] [-R] [-t] [-S] [-r] [-u] [<path> ...]]
+        [-mkdir [-p] <path> ...]
+        [-moveFromLocal <localsrc> ... <dst>]
+        [-moveToLocal <src> <localdst>]
+        [-mv <src> ... <dst>]
+        [-put [-f] [-p] [-l] <localsrc> ... <dst>]
+        [-renameSnapshot <snapshotDir> <oldName> <newName>]
+        [-rm [-f] [-r|-R] [-skipTrash] [-safely] <src> ...]
+        [-rmdir [--ignore-fail-on-non-empty] <dir> ...]
+        [-setfacl [-R] [{-b|-k} {-m|-x <acl_spec>} <path>]|[--set <acl_spec> <path>]]
+        [-setfattr {-n name [-v value] | -x name} <path>]
+        [-setrep [-R] [-w] <rep> <path> ...]
+        [-stat [format] <path> ...]
+        [-tail [-f] <file>]
+        [-test -[defsz] <path>]
+        [-text [-ignoreCrc] <src> ...]
+        [-touchz <path> ...]
+        [-truncate [-w] <length> <path> ...]
+        [-usage [cmd ...]]
+
+Generic options supported are
+-conf <configuration file>     specify an application configuration file
+-D <property=value>            use value for given property
+-fs <local|namenode:port>      specify a namenode
+-jt <local|resourcemanager:port>    specify a ResourceManager
+-files <comma separated list of files>    specify comma separated files to be copied to the map reduce cluster
+-libjars <comma separated list of jars>    specify comma separated jar files to include in the classpath.
+-archives <comma separated list of archives>    specify comma separated archives to be unarchived on the compute machines.
+
+The general command line syntax is
+bin/hadoop command [genericOptions] [commandOptions]
+
+[root@sandbox hive]# hadoop fs -ls /
+Found 14 items
+drwxrwxrwx   - yarn   hadoop          0 2017-06-13 01:29 /app-logs
+drwxr-xr-x   - hdfs   hdfs            0 2017-05-05 13:00 /apps
+drwxr-xr-x   - yarn   hadoop          0 2017-05-05 12:52 /ats
+drwxr-xr-x   - hdfs   hdfs            0 2017-05-05 13:10 /demo
+drwxr-xr-x   - hdfs   hdfs            0 2017-05-05 12:53 /hdp
+drwx------   - livy   hdfs            0 2017-05-05 12:54 /livy-recovery
+drwx------   - livy   hdfs            0 2017-05-05 12:54 /livy2-recovery
+drwxr-xr-x   - mapred hdfs            0 2017-05-05 12:53 /mapred
+drwxrwxrwx   - mapred hadoop          0 2017-05-05 12:53 /mr-history
+drwxr-xr-x   - hdfs   hdfs            0 2017-05-05 12:52 /ranger
+drwxrwxrwx   - spark  hadoop          0 2017-05-05 13:21 /spark-history
+drwxrwxrwx   - spark  hadoop          0 2017-06-19 07:01 /spark2-history
+drwxrwxrwx   - hdfs   hdfs            0 2017-05-05 13:16 /tmp
+drwxr-xr-x   - hdfs   hdfs            0 2017-06-13 01:29 /user
+[root@sandbox hive]#
+[root@sandbox hive]# hadoop fs -cat /apps/hive/warehouse/person/*
+1,tom,28,game-music-book,stu:henan-home:henan-work:beijing
+2,jack,21,money-meinv,stu:wuhan-home:wuhan
+3,lusi,18,shopping-music,stu:shanghai-home:beijing
